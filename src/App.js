@@ -23,7 +23,6 @@ class SearchBar extends Component {
       clearTimeout(this.myTimeout)
     }
     this.myTimeout = setTimeout(() => {
-      console.log(this.state)
 
       const query = this.state.query;
       // == show warning ????
@@ -87,7 +86,6 @@ class SearchBar extends Component {
 class BookItem extends Component {
 
   handleChange = (shelf) => {
-    
     // update shelf
     BooksAPI.update(this.props.book, shelf).then((data) => {
       // go back to main
@@ -116,6 +114,7 @@ class BookItem extends Component {
                 this.handleChange(event.target.value)
                 // go back to main
                 // this.props.backToMain()
+                // this.props.updateBookStatus(this.props.book, event.target.value)
               }} >
 
               }>
@@ -148,7 +147,11 @@ class BookShelf extends Component {
           <ol className="books-grid">
 
             {this.props.books.map( (book) => (
-              <BookItem key={book.id} book={book} backToMain={this.props.backToMain}/>
+              <BookItem
+                key={book.id}
+                book={book}
+                backToMain={this.props.backToMain}
+                />
             ) )}
 
           </ol>
@@ -173,7 +176,6 @@ class BooksApp extends React.Component {
   // refresh book list
   refreshMyBooks = () => {
     BooksAPI.getAll().then((data) => {
-      // console.log(data);
 
       // update states
       this.setState({
@@ -188,8 +190,8 @@ class BooksApp extends React.Component {
 
         <Route path='/search' render={({history}) => (
           <SearchBar backToMain={() => {
-            console.log("adfasfsafsafa -- 1 -- ");
             history.push('/')
+            this.refreshMyBooks()
           }} />
         )} />
 
