@@ -5,7 +5,10 @@ class NoMatch extends Component {
 
   render() {
     return (
-      <span>Error: page not found</span>
+      <div style={{
+        marginTop: 100,
+        textAlign: 'center'
+      }}>Error: 404 page not found</div>
     )
   }
 }
