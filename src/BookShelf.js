@@ -18,7 +18,7 @@ class BookShelf extends Component {
               <BookItem
                 key={shortid.generate()}
                 book={book}
-                backToMain={this.props.backToMain}
+                moveBooktoNewShelf={this.props.moveBooktoNewShelf}
                 />
             ) )}
 

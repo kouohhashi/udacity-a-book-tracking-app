@@ -81,7 +81,7 @@ class SearchBar extends Component {
 
             this.state.searchedBooks.map( (book) => (
 
-              <BookItem key={shortid.generate()} book={book} backToMain={this.props.backToMain}/>
+              <BookItem key={shortid.generate()} book={book} moveBooktoNewShelf={() => {}}/>
 
             ) )
           }

@@ -4,11 +4,22 @@ import * as BooksAPI from './BooksAPI'
 // BookItem Component
 class BookItem extends Component {
 
+  state = {
+    shelf: this.props.book.shelf
+  }
+
   handleChange = (shelf) => {
+    
     // update shelf
     BooksAPI.update(this.props.book, shelf).then((data) => {
-      // go back to main
-      // this.props.backToMain();
+
+      // update state of the book
+      this.setState({
+        shelf:shelf
+      })
+
+      // tell the change to parent
+      this.props.moveBooktoNewShelf();
     })
   }
 
@@ -28,19 +39,17 @@ class BookItem extends Component {
           <div className="book-top">
             <div className="book-cover" style={
               {
-                width: 128,
-                height: 193,
                 backgroundImage: `url(${smallThumbnail})`
               }
             }></div>
             <div className="book-shelf-changer">
 
-              <select value={this.props.book.shelf} onChange={(event) => {
+              <select value={this.state.shelf} onChange={(event) => {
                 this.handleChange(event.target.value)
               }} >
 
               }>
-                <option value="none" disabled>Move to...</option>
+                <option value="none1" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
                 <option value="read">Read</option>

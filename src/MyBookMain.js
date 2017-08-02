@@ -42,19 +42,19 @@ class MyBookMain extends Component {
           <div>
 
             <BookShelf
-              backToMain={this.refreshMyBooks}
+              moveBooktoNewShelf={this.refreshMyBooks}
               header_text='Currently Reading'
               books={this.state.books.filter( (book) => book.shelf === "currentlyReading" )}
               />
 
             <BookShelf
-              backToMain={this.refreshMyBooks}
+              moveBooktoNewShelf={this.refreshMyBooks}
               header_text='Want to Read'
               books={this.state.books.filter( (book) => book.shelf === "wantToRead" )}
               />
 
             <BookShelf
-              backToMain={this.refreshMyBooks}
+              moveBooktoNewShelf={this.refreshMyBooks}
               header_text='Read'
               books={this.state.books.filter( (book) => book.shelf === "read" )}
               />

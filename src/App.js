@@ -16,13 +16,11 @@ class BooksApp extends Component {
 
         <Switch>
 
-          <Route path='/search' render={({history}) => (
-            <SearchBar backToMain={() => {
-              history.push('/')
-            }} />
+          <Route path='/search' render={() => (
+            <SearchBar />
           )} />
 
-          <Route exact path='/' render={({history}) => (
+          <Route exact path='/' render={() => (
             <MyBookMain />
           )} />
 
