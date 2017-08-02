@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import shortid from 'shortid'
 import BookItem from './BookItem'
 
 /*
@@ -15,7 +16,7 @@ class BookShelf extends Component {
 
             {this.props.books.map( (book) => (
               <BookItem
-                key={book.id}
+                key={shortid.generate()}
                 book={book}
                 backToMain={this.props.backToMain}
                 />

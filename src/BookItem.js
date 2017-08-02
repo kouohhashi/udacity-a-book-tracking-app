@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
-// import { Route, Link } from 'react-router-dom'
-
 
 // BookItem Component
 class BookItem extends Component {
@@ -39,9 +37,6 @@ class BookItem extends Component {
 
               <select value={this.props.book.shelf} onChange={(event) => {
                 this.handleChange(event.target.value)
-                // go back to main
-                // this.props.backToMain()
-                // this.props.updateBookStatus(this.props.book, event.target.value)
               }} >
 
               }>
@@ -54,7 +49,7 @@ class BookItem extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors} poo</div>
+          <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
         </div>
       </li>
     )

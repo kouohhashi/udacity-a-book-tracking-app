@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 import {debounce} from 'throttle-debounce';
+import shortid from 'shortid'
 
 import BookItem from './BookItem'
 
@@ -27,7 +28,7 @@ class SearchBar extends Component {
     this.setState({query: str.trim()});
     const query = str.trim();
     this.setState({query: query});
-    console.log("query:"+query+", str:"+str)
+    // console.log("query:"+query+", str:"+str)
     // == show warning ????
     if (query === "") {
       // clear list
@@ -41,79 +42,14 @@ class SearchBar extends Component {
     this.searchBookAPICallwithDebounce(query)
   }
 
-  // searchBooksDebounce = (str) => {
-  //
-  //   this.setState({query: str.trim()});
-  //
-  //   const query = this.state.query;
-  //   // == show warning ????
-  //   if (query === "") {
-  //     // clear list
-  //     this.setState({
-  //       searchedBooks:[]
-  //     })
-  //     return;
-  //   }
-  //
-  //   // connect BooksAPI
-  //   BooksAPI.search(query, 50).then((data) => {
-  //
-  //     console.log("aaa:"+query)
-  //     console.log(data)
-  //
-  //     this.setState({
-  //       'searchedBooks':data
-  //     })
-  //   })
-  // }
-
   searchBookAPICallwithDebounce = (query) => {
     // connect BooksAPI
     BooksAPI.search(query, 50).then((data) => {
-
-      console.log("aaa:"+query)
-      console.log(data)
-
       this.setState({
         'searchedBooks':data
       })
     })
   }
-
-  // // search call
-  // searchBooks = (str) => {
-  //
-  //   this.setState({query: str.trim()});
-  //
-  //   // because if send something every time user input something, it may be too much,
-  //   // we send data only when user wait 1 sec after inputs
-  //   if (this.myTimeout != null){
-  //     clearTimeout(this.myTimeout)
-  //   }
-  //   this.myTimeout = setTimeout(() => {
-  //
-  //     const query = this.state.query;
-  //     // == show warning ????
-  //     if (query === "") {
-  //       // clear list
-  //       this.setState({
-  //         searchedBooks:[]
-  //       })
-  //       return;
-  //     }
-  //
-  //     // connect BooksAPI
-  //     BooksAPI.search(query, 50).then((data) => {
-  //
-  //       console.log("aaa:"+query)
-  //       console.log(data)
-  //
-  //       this.setState({
-  //         'searchedBooks':data
-  //       })
-  //     })
-  //   }, 500)
-  // }
 
   render(){
 
@@ -145,7 +81,7 @@ class SearchBar extends Component {
 
             this.state.searchedBooks.map( (book) => (
 
-              <BookItem key={book.id} book={book} backToMain={this.props.backToMain}/>
+              <BookItem key={shortid.generate()} book={book} backToMain={this.props.backToMain}/>
 
             ) )
           }

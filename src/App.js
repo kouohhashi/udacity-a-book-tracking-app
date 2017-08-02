@@ -1,85 +1,34 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
-import { Route, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import './App.css'
 
-// import BookItem from './BookItem'
+import NoMatch from './NoMatch'
 import SearchBar from './SearchBar'
-import BookShelf from './BookShelf'
-
+import MyBookMain from './MyBookMain'
 
 // BooksApp Component
 class BooksApp extends Component {
-
-  state = {
-    books: []
-  }
-
-  // get book data: "currentlyReading", "wantToRead" "read"
-  componentDidMount(){
-    this.refreshMyBooks()
-  }
-
-  // refresh book list
-  refreshMyBooks = () => {
-    BooksAPI.getAll().then((data) => {
-
-      // update states
-      this.setState({
-        'books':data
-      })
-    })
-  }
 
   render() {
     return (
       <div className="app">
 
-        <Route path='/search' render={({history}) => (
-          <SearchBar backToMain={() => {
-            history.push('/')
-            this.refreshMyBooks()
-          }} />
-        )} />
+        <Switch>
 
-        <Route exact path='/' render={() => (
+          <Route path='/search' render={({history}) => (
+            <SearchBar backToMain={() => {
+              history.push('/')
+            }} />
+          )} />
 
-          <div className="list-books">
+          <Route exact path='/' render={({history}) => (
+            <MyBookMain />
+          )} />
 
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
+          <Route component={NoMatch} />
 
-            <div className="list-books-content">
-              <div>
-
-                <BookShelf
-                  backToMain={this.refreshMyBooks}
-                  header_text='Currently Reading'
-                  books={this.state.books.filter( (book) => book.shelf === "currentlyReading" )}
-                  />
-
-                <BookShelf
-                  backToMain={this.refreshMyBooks}
-                  header_text='Want to Read'
-                  books={this.state.books.filter( (book) => book.shelf === "wantToRead" )}
-                  />
-
-                <BookShelf
-                  backToMain={this.refreshMyBooks}
-                  header_text='Read'
-                  books={this.state.books.filter( (book) => book.shelf === "read" )}
-                  />
-
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
-
-        )} />
+        </Switch>
 
       </div>
     )
