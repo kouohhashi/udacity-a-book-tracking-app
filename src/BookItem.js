@@ -8,7 +8,7 @@ class BookItem extends Component {
     // update shelf
     BooksAPI.update(this.props.book, shelf).then((data) => {
       // go back to main
-      this.props.backToMain();
+      // this.props.backToMain();
     })
   }
 
