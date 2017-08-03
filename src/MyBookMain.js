@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 
 import './App.css'
@@ -8,26 +7,6 @@ import BookShelf from './BookShelf'
 
 // BooksApp Component
 class MyBookMain extends Component {
-
-  state = {
-    books: []
-  }
-
-  // get book data: "currentlyReading", "wantToRead" "read"
-  componentDidMount(){
-    this.refreshMyBooks()
-  }
-
-  // refresh book list
-  refreshMyBooks = () => {
-    BooksAPI.getAll().then((data) => {
-
-      // update states
-      this.setState({
-        'books':data
-      })
-    })
-  }
 
   render() {
     return (
@@ -42,21 +21,21 @@ class MyBookMain extends Component {
           <div>
 
             <BookShelf
-              moveBooktoNewShelf={this.refreshMyBooks}
+              moveBooktoNewShelf={this.props.moveBooktoNewShelf}
               header_text='Currently Reading'
-              books={this.state.books.filter( (book) => book.shelf === "currentlyReading" )}
+              books={this.props.books.filter( (book) => book.shelf === "currentlyReading" )}
               />
 
             <BookShelf
-              moveBooktoNewShelf={this.refreshMyBooks}
+              moveBooktoNewShelf={this.props.moveBooktoNewShelf}
               header_text='Want to Read'
-              books={this.state.books.filter( (book) => book.shelf === "wantToRead" )}
+              books={this.props.books.filter( (book) => book.shelf === "wantToRead" )}
               />
 
             <BookShelf
-              moveBooktoNewShelf={this.refreshMyBooks}
+              moveBooktoNewShelf={this.props.moveBooktoNewShelf}
               header_text='Read'
-              books={this.state.books.filter( (book) => book.shelf === "read" )}
+              books={this.props.books.filter( (book) => book.shelf === "read" )}
               />
 
           </div>

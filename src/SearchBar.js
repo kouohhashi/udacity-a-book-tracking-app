@@ -45,8 +45,18 @@ class SearchBar extends Component {
   searchBookAPICallwithDebounce = (query) => {
     // connect BooksAPI
     BooksAPI.search(query, 50).then((data) => {
+
+      // reconsile shelf because shelf returned by search was wrong.
+      let books = data.map( (book) => {
+        let book_in_mybook = this.props.books.filter((myBooks) => myBooks.id === book.id && myBooks.title === book.title)
+        if (book_in_mybook && book_in_mybook.length !== 0){
+          return book_in_mybook[0];
+        } else {
+          return book;
+        }
+      } )
       this.setState({
-        'searchedBooks':data
+        'searchedBooks':books
       })
     })
   }
@@ -81,7 +91,7 @@ class SearchBar extends Component {
 
             this.state.searchedBooks.map( (book) => (
 
-              <BookItem key={shortid.generate()} book={book} moveBooktoNewShelf={() => {}}/>
+              <BookItem key={shortid.generate()} book={book} moveBooktoNewShelf={this.props.moveBooktoNewShelf} />
 
             ) )
           }
